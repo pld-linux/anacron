@@ -1,0 +1,40 @@
+#!/bin/sh
+# Startup script for anacron
+#
+# chkconfig: 2345 05 92
+# description: Anacron a periodic command scheduler.
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+[ -f /usr/sbin/anacron ] || exit 0
+
+case "$1" in
+  start)
+		show  "Starting anacron: " 
+		daemon anacron
+		echo
+		;;
+	
+  stop)
+		show "Shutting down anacron "
+		killproc anacron 
+		echo
+		;;
+	
+	status)
+		status anacron
+		;;
+
+	restart)
+		$0 stop
+		$0 start
+		;;
+	
+  *)
+		echo "Usage: anacron {start|stop|restart|status}"
+		exit 1
+
+esac
+
+exit 0
