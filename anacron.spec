@@ -33,7 +33,7 @@ Red Hat Linux packages are executed each day.
 
 %description -l pl
 Anacron (od ,,anac(h)ronistic'') zajmuje siê okresowym wykonywaniem
-poleceñ. Wykonuje je w odstêpachê bêd±cych wielokrotno¶ci± dni. W
+poleceñ. Wykonuje je w odstêpach bêd±cych wielokrotno¶ci± dni. W
 przeciwieñstwie do crona nie zak³ada, ¿e system dzia³a 24 godziny na
 dobê. Dziêki temu mo¿e byæ u¿ywany do wykonywania codziennych,
 cotygodniowych i comiesiêcznych (lub innych powtarzaj±cych siê co ile¶
