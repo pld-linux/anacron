@@ -73,7 +73,7 @@ anacron -u $i
 EOF
 done
 
-gzip -9nf ChangeLog COPYING README TODO
+gzip -9nf ChangeLog README TODO
 
 %post
 /sbin/chkconfig --add anacron
