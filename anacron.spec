@@ -2,7 +2,7 @@ Summary:	A cron-like program that can run jobs lost during downtime
 Summary(pl):	Wersja crona z mo¿liwo¶ci± uruchamiania zapomnianych procesów
 Name:		anacron
 Version:	2.3
-Release:	16
+Release:	18
 License:	GPL
 Group:		Daemons
 Group(de):	Server
