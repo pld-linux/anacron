@@ -76,6 +76,9 @@ done
 
 gzip -9nf ChangeLog README TODO
 
+%clean 
+rm -rf $RPM_BUILD_ROOT
+
 %post
 /sbin/chkconfig --add anacron
 
@@ -86,7 +89,6 @@ else
 fi
 
 %preun
-/sbin/chkconfig --del anacron
 if [ "$1" = "0" ];then
 	if [ -f /var/lock/subsys/anacron ]; then
 		/etc/rc.d/init.d/anacron stop >&2
@@ -94,12 +96,9 @@ if [ "$1" = "0" ];then
 	/sbin/chkconfig --del anacron
 fi
 
-%clean 
-rm -rf $RPM_BUILD_ROOT
-
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog* COPYING* README* TODO*
+%doc ChangeLog* README* TODO*
 %attr(755,root,root) %{_sbindir}/anacron
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config %{_sysconfdir}/anacrontab
