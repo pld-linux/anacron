@@ -3,7 +3,7 @@ Summary(pl):	Wersja crona z mo¿liwo¶ci± uruchamiania zapomnianych procesów
 Summary(pt_BR):	Auxiliar do cron para máquinas que não ficam ligadas o tempo todo
 Name:		anacron
 Version:	2.3
-Release:	20
+Release:	21
 License:	GPL
 Group:		Daemons
 Source0:	http://download.sourceforge.net/anacron/%{name}-%{version}.tar.gz
@@ -12,7 +12,7 @@ Source2:	%{name}.init
 Patch0:		%{name}-SIGTERM.patch
 Patch1:		%{name}-sendmail.patch
 URL:		http://anacron.sourceforge.net/
-Requires:	/usr/lub/sendmail
+Requires:	/usr/lib/sendmail
 Prereq:		/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
