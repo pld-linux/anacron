@@ -28,7 +28,7 @@ case "$1" in
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/anacron
 	else
-		msg_Already_Running Anacron
+		msg_already_running Anacron
 		exit 1
 	fi
 	;;
@@ -44,7 +44,7 @@ case "$1" in
 			    fi
                 rm -f /var/lock/subsys/anacron >/dev/null 2>&1
         else
-                msg_Not_Running Anacron
+                msg_not_running Anacron
                 exit 1
         fi
 	;;
@@ -56,7 +56,7 @@ case "$1" in
 	$0 start
 	;;
   *)
-	msg_Usage: "$0 {start|stop|status|restart}"
+	msg_usage: "$0 {start|stop|status|restart}"
 	exit 1
 esac
 
