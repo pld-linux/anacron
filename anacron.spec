@@ -5,8 +5,6 @@ Version:	2.3
 Release:	18
 License:	GPL
 Group:		Daemons
-Group(de):	Server
-Group(pl):	Serwery
 Source0:	http://download.sourceforge.net/anacron/%{name}-%{version}.tar.gz
 Source1:	%{name}tab
 Source2:	%{name}.init
