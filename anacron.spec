@@ -2,7 +2,7 @@ Summary:	A cron-like program that can run jobs lost during downtime
 Summary(pl):	Wersja crona z mo¿liwo¶ci± uruchamiania zapomnianych procesów
 Name:		anacron
 Version:	2.3
-Release:	10
+Release:	11
 License:	GPL
 Group:		Daemons
 Group(de):	Server
@@ -12,11 +12,7 @@ Source1:	%{name}tab
 Source2:	%{name}.init
 Requires:	/bin/sh
 Prereq:		/sbin/chkconfig
-Provides:	crondaemon
-Provides:	crontabs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Obsoletes:	vixie-cron
-Obsoletes:	hc-cron
 
 %description
 Anacron (like `anac(h)ronistic') is a periodic command scheduler. It
@@ -80,21 +76,21 @@ done
 gzip -9nf ChangeLog COPYING README TODO
 
 %post
-/sbin/chkconfig --add cron
+/sbin/chkconfig --add anacron
 
-if [ -f /var/lock/subsys/crond ]; then
-	/etc/rc.d/init.d/crond restart >&2
+if [ -f /var/lock/subsys/anacron ]; then
+	/etc/rc.d/init.d/anacron restart >&2
 else
-	echo "Run \"/etc/rc.d/init.d/crond start\" to start Anacron daemon."
+	echo "Run \"/etc/rc.d/init.d/anacron start\" to start Anacron daemon."
 fi
 
 %preun
-/sbin/chkconfig --del cron
+/sbin/chkconfig --del anacron
 if [ "$1" = "0" ];then
-	if [ -f /var/lock/subsys/crond ]; then
-		/etc/rc.d/init.d/crond stop >&2
+	if [ -f /var/lock/subsys/anacron ]; then
+		/etc/rc.d/init.d/anacron stop >&2
 	fi
-	/sbin/chkconfig --del cron
+	/sbin/chkconfig --del anacron
 fi
 
 %clean 
