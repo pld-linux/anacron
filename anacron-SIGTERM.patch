@@ -1,0 +1,25 @@
+diff -urN anacron-2.3.orig/main.c anacron-2.3/main.c
+--- anacron-2.3.orig/main.c	Fri Jun 23 00:58:07 2000
++++ anacron-2.3/main.c	Tue Mar 19 10:04:03 2002
+@@ -265,6 +265,12 @@
+     sa.sa_mask = ss;
+     sa.sa_flags = 0;
+     if (sigaction(SIGUSR1, &sa, NULL)) die_e("sigaction error");
++    
++    /* setup SIGTERM handler */
++    sa.sa_handler = handle_sigusr1;
++    sa.sa_mask = ss;
++    sa.sa_flags = 0;
++    if (sigaction(SIGTERM, &sa, NULL)) die_e("sigaction error");
+ }
+ 
+ static void
+@@ -289,7 +295,7 @@
+ 	wait_signal();
+ 	if (got_sigchld) tend_children();
+ 	got_sigchld = 0;
+-	if (got_sigusr1) explain("Received SIGUSR1");
++	if (got_sigusr1) explain("Received SIGUSR1 or SIGTERM");
+ 	got_sigusr1 = 0;
+     }
+ }
