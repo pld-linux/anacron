@@ -7,6 +7,7 @@ Release:	22
 License:	GPL
 Group:		Daemons
 Source0:	http://download.sourceforge.net/anacron/%{name}-%{version}.tar.gz
+# Source0-md5:	865cc1dfe1ed75c470d3e6de13763f03
 Source1:	%{name}tab
 Source2:	%{name}.init
 Patch0:		%{name}-SIGTERM.patch
