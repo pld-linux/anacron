@@ -60,7 +60,8 @@ não estão ligados 24 horas por dia.
 %patch1 -p1
 
 %build
-%{__make} CFLAGS="%{rpmcflags}"
+%{__make} \
+	 CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
