@@ -74,7 +74,7 @@ done
 
 gzip -9nf ChangeLog README TODO
 
-%clean 
+%clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
