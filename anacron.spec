@@ -77,10 +77,22 @@ done
 gzip -9nf ChangeLog README TODO
 
 %post
-DESC="Anacron daemon"; %chkconfig_add
+/sbin/chkconfig --add anacron
+
+if [ -f /var/lock/subsys/anacron ]; then
+	/etc/rc.d/init.d/anacron restart >&2
+else
+	echo "Run \"/etc/rc.d/init.d/anacron start\" to start Anacron daemon."
+fi
 
 %preun
-%chkconfig_del
+/sbin/chkconfig --del anacron
+if [ "$1" = "0" ];then
+	if [ -f /var/lock/subsys/anacron ]; then
+		/etc/rc.d/init.d/anacron stop >&2
+	fi
+	/sbin/chkconfig --del anacron
+fi
 
 %clean 
 rm -rf $RPM_BUILD_ROOT
