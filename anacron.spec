@@ -89,8 +89,6 @@ anacron -u $i
 EOF
 done
 
-gzip -9nf ChangeLog README TODO
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -113,7 +111,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog* README* TODO*
+%doc ChangeLog README TODO
 %attr(755,root,root) %{_sbindir}/anacron
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config %{_sysconfdir}/anacrontab
