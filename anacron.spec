@@ -2,15 +2,21 @@ Summary:	A cron-like program that can run jobs lost during downtime
 Summary(pl):	Wersja crona z mo¿liwo¶ci± uruchamiania zapomnianych procesów
 Name:		anacron
 Version:	2.3
-Release:	1
+Release:	10
 License:	GPL
 Group:		Daemons
+Group(de):	Server
+Group(pl):	Serwery
 Source0:	%{name}-%{version}.tar.gz
-Source1:	anacrontab
+Source1:	%{name}tab
 Source2:	%{name}.init
 Requires:	/bin/sh
 Prereq:		/sbin/chkconfig
+Provides:	crondaemon
+Provides:	crontabs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	vixie-cron
+Obsoletes:	hc-cron
 
 %description
 Anacron (like `anac(h)ronistic') is a periodic command scheduler. It
@@ -40,14 +46,14 @@ mo¿liwo¶ci uruchamiania procesów np co godzinê.
 %setup -q
 
 %build
-%{__make} CFLAGS="$RPM_OPT_FLAGS"
+%{__make} CFLAGS="%{!?debug:$RPM_OPT_FLAGS}%{?debug:-O -g}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_sbindir},%{_mandir}/man{5,8}} \
 	$RPM_BUILD_ROOT/{var/spool/anacron,etc/rc.d/init.d}
 
-install -s anacron $RPM_BUILD_ROOT%{_sbindir}
+install anacron $RPM_BUILD_ROOT%{_sbindir}
 install anacron.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 install anacrontab.5 $RPM_BUILD_ROOT%{_mandir}/man5/
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}
@@ -74,10 +80,22 @@ done
 gzip -9nf ChangeLog COPYING README TODO
 
 %post
-/sbin/chkconfig --add anacron
+/sbin/chkconfig --add cron
+
+if [ -f /var/lock/subsys/crond ]; then
+	/etc/rc.d/init.d/crond restart >&2
+else
+	echo "Run \"/etc/rc.d/init.d/crond start\" to start Anacron daemon."
+fi
 
 %preun
-/sbin/chkconfig --del anacron
+/sbin/chkconfig --del cron
+if [ "$1" = "0" ];then
+	if [ -f /var/lock/subsys/crond ]; then
+		/etc/rc.d/init.d/crond stop >&2
+	fi
+	/sbin/chkconfig --del cron
+fi
 
 %clean 
 rm -rf $RPM_BUILD_ROOT
