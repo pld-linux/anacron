@@ -1,0 +1,22 @@
+diff -u anacron-2.3/runjob.c~ anacron-2.3/runjob.c
+--- anacron-2.3/runjob.c~	2003-07-10 15:25:44.000000000 +0900
++++ anacron-2.3/runjob.c	2003-07-10 15:25:44.000000000 +0900
+@@ -35,6 +35,8 @@
+ #include <string.h>
+ #include "global.h"
+ 
++#include <langinfo.h>
++
+ static int
+ temp_file()
+ /* Open a temporary file and return its file descriptor */
+@@ -217,6 +219,9 @@
+     xwrite(fd, "To: ");
+     xwrite(fd, username());
+     xwrite(fd, "\n");
++    xwrite(fd, "Content-Type: text/plain; charset=\"");
++    xwrite(fd, nl_langinfo(CODESET));
++    xwrite(fd, "\"\n");
+     xwrite(fd, "Subject: Anacron job '");
+     xwrite(fd, jr->ident);
+     xwrite(fd, "'\n\n");
