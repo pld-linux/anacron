@@ -8,7 +8,7 @@
 #
 # processname:	anacron
 # config:	/etc/anacrontab
-# pidfile:	/var/run/crond.pid
+# pidfile:	/var/lock/subsys/anacron
 
 
 # Source function library
@@ -22,11 +22,11 @@
 case "$1" in
   start)
 	# Check if the service is already running?
-	if [ ! -f /var/lock/subsys/crond ]; then
+	if [ ! -f /var/lock/subsys/anacron ]; then
 		msg_starting Anacron
 		daemon anacron
 		RETVAL=$?
-		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/crond
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/anacron
 	else
 		msg_Already_Running Anacron
 		exit 1
@@ -34,12 +34,17 @@ case "$1" in
 	;;
   stop)
         # Stop daemons.
-        if [ -f /var/lock/subsys/crond ]; then
-                msg_stopping Cron
-                killproc anacron
-                rm -f /var/lock/subsys/crond >/dev/null 2>&1
+        if [ -f /var/lock/subsys/anacron ]; then
+                msg_stopping Anacron
+                if [ `pidofproc anacron` ]; then
+				# if anacron is yet running
+				 killproc anacron;
+				else
+				 ok;
+			    fi
+                rm -f /var/lock/subsys/anacron >/dev/null 2>&1
         else
-                msg_Not_Running Cron
+                msg_Not_Running Anacron
                 exit 1
         fi
 	;;
