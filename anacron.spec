@@ -1,13 +1,13 @@
 Summary:	A cron-like program that can run jobs lost during downtime
 Summary(pl):	Wersja crona z mo¿liwo¶ci± uruchamiania zapomnianych procesów
 Name:		anacron
-Version:	2.1
-Release:	6
+Version:	2.3
+Release:	1
 License:	GPL
 Group:		Daemons
-Source0:	%{name}-%{version}.tar.bz2
+Source0:	%{name}-%{version}.tar.gz
 Source1:	anacrontab
-Source2:	anacron.init
+Source2:	%{name}.init
 Requires:	/bin/sh
 Prereq:		/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -30,11 +30,11 @@ Red Hat Linux packages are executed each day.
 %description -l pl
 cron to standardowy unixowy program, okresowo uruchamiaj±cy zadane
 przez u¿ytkowników programy. anacron jest wersj± crona umo¿liwiaj±c±
-uruchamianie procesów które normalnie by siê nie wykona³y z powodu
-wy³±czenia maszyny. Jest to doskona³e rozwi±zanie dla komputerów
-domowych które nie s± w³±czone 24h na dobê. Uwaga - anacron nie
-zastêpuje crona a jedynie go wspomaga! Nie ma mo¿liwo¶ci uruchamiania
-procesów np co godzinê
+uruchamianie procesów które normalnie by siê nie wykona³y na przyk³ad
+z powodu wy³±czenia maszyny. Jest to doskona³e rozwi±zanie dla
+komputerów domowych które nie s± w³±czone 24h na dobê. Uwaga - anacron
+nie zastêpuje crona a jedynie go wspomaga! Nie ma na przyk³ad
+mo¿liwo¶ci uruchamiania procesów np co godzinê.
 
 %prep
 %setup -q
@@ -44,14 +44,14 @@ procesów np co godzinê
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir},%_{sbindir},%{_mandir}/man{5,8}} \
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_sbindir},%{_mandir}/man{5,8}} \
 	$RPM_BUILD_ROOT/{var/spool/anacron,etc/rc.d/init.d}
 
 install -s anacron $RPM_BUILD_ROOT%{_sbindir}
 install anacron.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 install anacrontab.5 $RPM_BUILD_ROOT%{_mandir}/man5/
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}
-install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/anacron
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 
 for i in cron.daily cron.weekly cron.monthly; do
 install  -d $RPM_BUILD_ROOT%{_sysconfdir}/$i/
@@ -71,8 +71,7 @@ anacron -u $i
 EOF
 done
 
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man{5,8}/* \
-	NEWS README
+gzip -9nf ChangeLog COPYING README TODO
 
 %post
 /sbin/chkconfig --add anacron
@@ -85,7 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc ChangeLog* COPYING* README* TODO*
 %attr(755,root,root) %{_sbindir}/anacron
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config %{_sysconfdir}/anacrontab
