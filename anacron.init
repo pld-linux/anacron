@@ -33,30 +33,30 @@ case "$1" in
 	fi
 	;;
   stop)
-        # Stop daemons.
-        if [ -f /var/lock/subsys/anacron ]; then
-                msg_stopping Anacron
-                if [ `pidofproc anacron` ]; then
-				# if anacron is yet running
-				 killproc anacron;
-				else
-				 ok;
-			    fi
-                rm -f /var/lock/subsys/anacron >/dev/null 2>&1
-        else
-                msg_not_running Anacron
-                exit 1
-        fi
+	# Stop daemons.
+	if [ -f /var/lock/subsys/anacron ]; then
+		msg_stopping Anacron
+		if [ `pidofproc anacron` ]; then
+			# if anacron is yet running
+			killproc anacron;
+		else
+			ok;
+		fi
+		rm -f /var/lock/subsys/anacron >/dev/null 2>&1
+	else
+		msg_not_running Anacron
+		exit 1
+	fi
 	;;
   status)
 	status anacron
 	;;
-  restart)
+  restart|reload)
 	$0 stop
 	$0 start
 	;;
   *)
-	msg_usage: "$0 {start|stop|status|restart}"
+	msg_usage "$0 {start|stop|restart|reload|status}"
 	exit 1
 esac
 
