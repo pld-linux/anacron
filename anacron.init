@@ -11,15 +11,13 @@
 
 case "$1" in
   start)
-		show  "Starting anacron: " 
+		msg_starting "anacron" 
 		daemon anacron
-		echo
 		;;
 	
   stop)
-		show "Shutting down anacron "
+		msg_stopping "anacron"
 		killproc anacron 
-		echo
 		;;
 	
 	status)
@@ -32,7 +30,7 @@ case "$1" in
 		;;
 	
   *)
-		echo "Usage: anacron {start|stop|restart|status}"
+		msg_Usage "$0 {start|stop|restart|status}"
 		exit 1
 
 esac
