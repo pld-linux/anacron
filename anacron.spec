@@ -4,7 +4,7 @@ Name:		anacron
 Version:	2.1
 Release:	6
 License:	GPL
-Group:		System Environment/Base
+Group:		Daemons
 Source0:	%{name}-%{version}.tar.bz2
 Source1:	anacrontab
 Source2:	anacron.init
