@@ -5,7 +5,7 @@
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-# These entries are useful for a Red Hat Linux system.
+# These entries are useful for a PLD Linux system.
 1	5	cron.daily		run-parts /etc/cron.daily
 7	10	cron.weekly		run-parts /etc/cron.weekly
-30	15	cron.monthly	run-parts /etc/cron.monthly
+30	15	cron.monthly		run-parts /etc/cron.monthly
