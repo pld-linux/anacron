@@ -1,38 +1,58 @@
 #!/bin/sh
-# Startup script for anacron
 #
-# chkconfig: 2345 05 92
-# description: Anacron a periodic command scheduler.
+# anacrond		Start/Stop the cron clock daemon.
+#
+# chkconfig:	2345 40 60
+#
+# description:	Anacron a periodic command scheduler.
+#
+# processname:	anacron
+# config:	/etc/anacrontab
+# pidfile:	/var/run/crond.pid
 
-# Source function library.
+
+# Source function library
 . /etc/rc.d/init.d/functions
 
-[ -f /usr/sbin/anacron ] || exit 0
+# Get service config
+[ -f /etc/sysconfig/anacron ] && . /etc/sysconfig/anacron
 
+
+# See how we were called.
 case "$1" in
   start)
-		msg_starting "anacron" 
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/crond ]; then
+		msg_starting Anacron
 		daemon anacron
-		;;
-	
-  stop)
-		msg_stopping "anacron"
-		killproc anacron 
-		;;
-	
-	status)
-		status anacron
-		;;
-
-	restart)
-		$0 stop
-		$0 start
-		;;
-	
-  *)
-		msg_Usage "$0 {start|stop|restart|status}"
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/crond
+	else
+		msg_Already_Running Anacron
 		exit 1
-
+	fi
+	;;
+  stop)
+        # Stop daemons.
+        if [ -f /var/lock/subsys/crond ]; then
+                msg_stopping Cron
+                killproc anacron
+                rm -f /var/lock/subsys/crond >/dev/null 2>&1
+        else
+                msg_Not_Running Cron
+                exit 1
+        fi
+	;;
+  status)
+	status anacron
+	;;
+  restart)
+	$0 stop
+	$0 start
+	;;
+  *)
+	msg_Usage: "$0 {start|stop|status|restart}"
+	exit 1
 esac
 
-exit 0
+exit $RETVAL
