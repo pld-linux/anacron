@@ -1,0 +1,11 @@
+--- anacron-2.3/global.h~	Mon Apr 22 07:42:35 2002
++++ anacron-2.3/global.h	Mon Apr 22 07:42:35 2002
+@@ -32,7 +32,7 @@
+ #define DEBUG_LEVEL LOG_DEBUG     /* only used when DEBUG is defined */
+ 
+ /* Mail interface.  (All MTAs should supply this command) */
+-#define SENDMAIL "/usr/sbin/sendmail"
++#define SENDMAIL "/usr/lib/sendmail"
+ 
+ /* End of user-configurable section */
+ 
