@@ -7,9 +7,10 @@ License:	GPL
 Group:		Daemons
 Group(de):	Server
 Group(pl):	Serwery
-Source0:	%{name}-%{version}.tar.gz
+Source0:	http://download.sourceforge.net/anacron/%{name}-%{version}.tar.gz
 Source1:	%{name}tab
 Source2:	%{name}.init
+URL:		http://anacron.sourceforge.net/
 Requires:	/bin/sh
 Prereq:		/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
