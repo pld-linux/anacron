@@ -77,10 +77,10 @@ done
 gzip -9nf ChangeLog README TODO
 
 %post
-DESC="Anacron daemon"; %chkconfig_post
+DESC="Anacron daemon"; %chkconfig_add
 
 %preun
-%chkconfig_preun
+%chkconfig_del
 
 %clean 
 rm -rf $RPM_BUILD_ROOT
