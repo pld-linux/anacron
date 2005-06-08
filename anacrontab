@@ -4,6 +4,7 @@
 
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
 
 # These entries are useful for a PLD Linux system.
 1	5	cron.daily		run-parts /etc/cron.daily
