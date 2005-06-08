@@ -1,0 +1,58 @@
+diff -U 3 anacron-2.3.oud/runjob.c anacron-2.3/runjob.c
+--- anacron-2.3.oud/runjob.c	2000-06-21 01:12:18.000000000 +0200
++++ anacron-2.3/runjob.c	2004-07-09 19:05:22.314056376 +0200
+@@ -83,6 +83,18 @@
+     return ps->pw_name;
+ }
+ 
++static char *
++mailto()
++{
++    char *alias;
++
++    alias = getenv("MAILTO");
++    if (alias == NULL || strlen(alias) == 0)
++        return username();
++    else
++        return alias;
++}
++
+ static void
+ xputenv(const char *s)
+ {
+@@ -109,7 +121,6 @@
+ run_job(const job_rec *jr)
+ /* This is called to start the job, after the fork */
+ {
+-    setup_env(jr);
+     /* setup stdout and stderr */
+     xclose(1);
+     xclose(2);
+@@ -173,7 +184,7 @@
+ 	 * options, which don't seem to be appropriate here.
+ 	 * Hopefully, this will keep all the MTAs happy. */
+ 	execl(SENDMAIL, SENDMAIL, "-FAnacron", "-odi",
+-	      username(), (char *)NULL);
++	      mailto(), (char *)NULL);
+ 	die_e("Can't exec " SENDMAIL);
+     }
+     /* parent */
+@@ -208,6 +219,9 @@
+     pid_t pid;
+     int fd;
+ 
++    /* import environment for mailto() to work properly */
++    setup_env(jr);
++
+     /* create temporary file for stdout and stderr of the job */
+     fd = jr->output_fd = temp_file();
+     /* write mail header */
+@@ -215,7 +229,7 @@
+     xwrite(fd, username());
+     xwrite(fd, " (Anacron)\n");
+     xwrite(fd, "To: ");
+-    xwrite(fd, username());
++    xwrite(fd, mailto());
+     xwrite(fd, "\n");
+     xwrite(fd, "Subject: Anacron job '");
+     xwrite(fd, jr->ident);
