@@ -1,0 +1,8 @@
+- bump release to 10 (for allow upgrade from RH 7),
+- adapterized, make %{debug} ready.
+- added Provides: crondeamon, crontabs amd Obsoletes for crondeamon, hc-cron,
+  vixie-cron,
+- standarized %post/%preun,
+- rewrited init script.
+  NOTE: released but it will be good add patch for read crontabs from
+  /etc/cron.d (like on vixie-cron and hc-cron) and remove /etc/anacrontab.
