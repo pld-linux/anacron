@@ -1,3 +1,6 @@
+# TODO
+# - missing cron.hourly processing?
+# - doesn't own /etc/cron.PERIOD/ dirs like other crond's do
 Summary:	A cron-like program that can run jobs lost during downtime
 Summary(pl):	Wersja crona z mo¿liwo¶ci± uruchamiania zapomnianych procesów
 Summary(pt_BR):	Auxiliar do cron para máquinas que não ficam ligadas o tempo todo
@@ -34,7 +37,7 @@ machine-uptime permits.
 This package is pre-configured to execute the daily jobs of the PLD
 Linux system. You should install this program if your system isn't
 powered on 24 hours a day to make sure the maintenance jobs of other
-Red Hat Linux packages are executed each day.
+PLD Linux packages are executed each day.
 
 %description -l pl
 Anacron (od ,,anac(h)ronistic'') zajmuje siê okresowym wykonywaniem
