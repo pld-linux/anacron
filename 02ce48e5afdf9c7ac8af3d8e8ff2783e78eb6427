@@ -1,0 +1,4 @@
+- Release 21.
+- s@/usr/lub/sendmail@/usr/lib/sendmail@.
+          ^                 ^
+  STBR
