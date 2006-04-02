@@ -9,7 +9,7 @@ Version:	2.3
 Release:	24
 License:	GPL
 Group:		Daemons
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/anacron/%{name}-%{version}.tar.gz
 # Source0-md5:	865cc1dfe1ed75c470d3e6de13763f03
 Source1:	%{name}tab
 Source2:	%{name}.init
@@ -19,9 +19,10 @@ Patch2:		%{name}-content-type.patch
 Patch3:		%{name}-mailto.patch
 Patch4:		%{name}-noconst.patch
 URL:		http://anacron.sourceforge.net/
+BuildRequires:	rpmbuild(macros) >= 1.268
+Requires:	/sbin/chkconfig
 Requires:	/usr/lib/sendmail
 Provides:	crondaemon
-Prereq:		/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -84,7 +85,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 
 for i in cron.daily cron.weekly cron.monthly; do
-install  -d $RPM_BUILD_ROOT%{_sysconfdir}/$i/
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/$i/
 cat << EOF > $RPM_BUILD_ROOT%{_sysconfdir}/$i/0anacron
 #!/bin/sh
 #
@@ -106,18 +107,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add anacron
-
-if [ -f /var/lock/subsys/anacron ]; then
-	/etc/rc.d/init.d/anacron restart >&2
-else
-	echo "Run \"/etc/rc.d/init.d/anacron start\" to start Anacron daemon."
-fi
+%service anacron restart "Anacron daemon"
 
 %preun
 if [ "$1" = "0" ];then
-	if [ -f /var/lock/subsys/anacron ]; then
-		/etc/rc.d/init.d/anacron stop >&2
-	fi
+	%service anacron stop
 	/sbin/chkconfig --del anacron
 fi
 
