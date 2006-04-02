@@ -1,12 +1,12 @@
 # TODO
-# - missing cron.hourly processing?
-# - doesn't own /etc/cron.PERIOD/ dirs like other crond's do
+# - missing /etc/cron.hourly processing!!!!
+# - doesn't obsolete other crondaemons like other Provides: crondaemons do.
 Summary:	A cron-like program that can run jobs lost during downtime
 Summary(pl):	Wersja crona z mo¿liwo¶ci± uruchamiania zapomnianych procesów
 Summary(pt_BR):	Auxiliar do cron para máquinas que não ficam ligadas o tempo todo
 Name:		anacron
 Version:	2.3
-Release:	24
+Release:	25
 License:	GPL
 Group:		Daemons
 Source0:	http://dl.sourceforge.net/anacron/%{name}-%{version}.tar.gz
@@ -71,7 +71,8 @@ não estão ligados 24 horas por dia.
 
 %build
 %{__make} \
-	 CFLAGS="%{rpmcflags}"
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -122,7 +123,8 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config %{_sysconfdir}/anacrontab
 %dir /var/spool/anacron/
-%config %{_sysconfdir}/cron.daily/0anacron
-%config %{_sysconfdir}/cron.monthly/0anacron
-%config %{_sysconfdir}/cron.weekly/0anacron
+%attr(750,root,root) %dir %{_sysconfdir}/cron.*
+%attr(755,root,root) %{_sysconfdir}/cron.daily/0anacron
+%attr(755,root,root) %{_sysconfdir}/cron.monthly/0anacron
+%attr(755,root,root) %{_sysconfdir}/cron.weekly/0anacron
 %{_mandir}/man[58]/*
