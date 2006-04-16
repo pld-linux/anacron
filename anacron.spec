@@ -20,8 +20,9 @@ Patch3:		%{name}-mailto.patch
 Patch4:		%{name}-noconst.patch
 URL:		http://anacron.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.268
-Requires:	/sbin/chkconfig
+Requires(post,preun):	/sbin/chkconfig
 Requires:	/usr/lib/sendmail
+Requires:	rc-scripts
 Provides:	crondaemon
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -124,7 +125,7 @@ fi
 %config %{_sysconfdir}/anacrontab
 %dir /var/spool/anacron/
 %attr(750,root,root) %dir %{_sysconfdir}/cron.*
-%attr(755,root,root) %{_sysconfdir}/cron.daily/0anacron
+%attr(755,root,root) /etc/cron.daily/0anacron
 %attr(755,root,root) %{_sysconfdir}/cron.monthly/0anacron
 %attr(755,root,root) %{_sysconfdir}/cron.weekly/0anacron
 %{_mandir}/man[58]/*
