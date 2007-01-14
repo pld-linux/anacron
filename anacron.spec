@@ -6,7 +6,7 @@ Summary(pl):	Wersja crona z mo¿liwo¶ci± uruchamiania zapomnianych procesów
 Summary(pt_BR):	Auxiliar do cron para máquinas que não ficam ligadas o tempo todo
 Name:		anacron
 Version:	2.3
-Release:	25
+Release:	26
 License:	GPL
 Group:		Daemons
 Source0:	http://dl.sourceforge.net/anacron/%{name}-%{version}.tar.gz
