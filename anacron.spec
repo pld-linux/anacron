@@ -2,8 +2,8 @@
 # - missing /etc/cron.hourly processing!!!!
 # - doesn't obsolete other crondaemons like other Provides: crondaemons do.
 Summary:	A cron-like program that can run jobs lost during downtime
-Summary(pl.UTF-8):   Wersja crona z możliwością uruchamiania zapomnianych procesów
-Summary(pt_BR.UTF-8):   Auxiliar do cron para máquinas que não ficam ligadas o tempo todo
+Summary(pl.UTF-8):	Wersja crona z możliwością uruchamiania zapomnianych procesów
+Summary(pt_BR.UTF-8):	Auxiliar do cron para máquinas que não ficam ligadas o tempo todo
 Name:		anacron
 Version:	2.3
 Release:	26
