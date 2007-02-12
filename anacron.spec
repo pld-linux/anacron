@@ -2,8 +2,8 @@
 # - missing /etc/cron.hourly processing!!!!
 # - doesn't obsolete other crondaemons like other Provides: crondaemons do.
 Summary:	A cron-like program that can run jobs lost during downtime
-Summary(pl):	Wersja crona z mo¿liwo¶ci± uruchamiania zapomnianych procesów
-Summary(pt_BR):	Auxiliar do cron para máquinas que não ficam ligadas o tempo todo
+Summary(pl.UTF-8):   Wersja crona z moÅ¼liwoÅ›ciÄ… uruchamiania zapomnianych procesÃ³w
+Summary(pt_BR.UTF-8):   Auxiliar do cron para mÃ¡quinas que nÃ£o ficam ligadas o tempo todo
 Name:		anacron
 Version:	2.3
 Release:	26
@@ -41,26 +41,26 @@ Linux system. You should install this program if your system isn't
 powered on 24 hours a day to make sure the maintenance jobs of other
 PLD Linux packages are executed each day.
 
-%description -l pl
-Anacron (od ,,anac(h)ronistic'') zajmuje siê okresowym wykonywaniem
-poleceñ. Wykonuje je w odstêpach bêd±cych wielokrotno¶ci± dni. W
-przeciwieñstwie do crona nie zak³ada, ¿e system dzia³a 24 godziny na
-dobê. Dziêki temu mo¿e byæ u¿ywany do wykonywania codziennych,
-cotygodniowych i comiesiêcznych (lub innych powtarzaj±cych siê co ile¶
-dni) zadañ w systemach, które nie s± w³±czone non-stop. Zainstalowany
-i poprawnie skonfigurowany Anacron zapewni wykonywanie zleconych zadañ
-tak blisko wyznaczonych terminów, jak tylko mo¿liwe.
+%description -l pl.UTF-8
+Anacron (od ,,anac(h)ronistic'') zajmuje siÄ™ okresowym wykonywaniem
+poleceÅ„. Wykonuje je w odstÄ™pach bÄ™dÄ…cych wielokrotnoÅ›ciÄ… dni. W
+przeciwieÅ„stwie do crona nie zakÅ‚ada, Å¼e system dziaÅ‚a 24 godziny na
+dobÄ™. DziÄ™ki temu moÅ¼e byÄ‡ uÅ¼ywany do wykonywania codziennych,
+cotygodniowych i comiesiÄ™cznych (lub innych powtarzajÄ…cych siÄ™ co ileÅ›
+dni) zadaÅ„ w systemach, ktÃ³re nie sÄ… wÅ‚Ä…czone non-stop. Zainstalowany
+i poprawnie skonfigurowany Anacron zapewni wykonywanie zleconych zadaÅ„
+tak blisko wyznaczonych terminÃ³w, jak tylko moÅ¼liwe.
 
-Ten pakiet zosta³ wstêpnie skonfigurowany do dzia³ania w systemie PLD
-Linux. Powiniene¶ zainstalowaæ ten program na systemach, które nie s±
-w³±czone non-stop aby zapewniæ uruchamianie ró¿nych zadañ
-utrzymuj±cych system we w³a¶ciwych odstêpach czasu.
+Ten pakiet zostaÅ‚ wstÄ™pnie skonfigurowany do dziaÅ‚ania w systemie PLD
+Linux. PowinieneÅ› zainstalowaÄ‡ ten program na systemach, ktÃ³re nie sÄ…
+wÅ‚Ä…czone non-stop aby zapewniÄ‡ uruchamianie rÃ³Å¼nych zadaÅ„
+utrzymujÄ…cych system we wÅ‚aÅ›ciwych odstÄ™pach czasu.
 
-%description -l pt_BR
-Anacron é uma agenda para marcar a execução de comandos em horários
-programados. Ao contrário do cron, o anacron não requer que o sistema
+%description -l pt_BR.UTF-8
+Anacron Ã© uma agenda para marcar a execuÃ§Ã£o de comandos em horÃ¡rios
+programados. Ao contrÃ¡rio do cron, o anacron nÃ£o requer que o sistema
 esteja rodando continuamente, podendo ser executado em sistemas que
-não estão ligados 24 horas por dia.
+nÃ£o estÃ£o ligados 24 horas por dia.
 
 %prep
 %setup -q
