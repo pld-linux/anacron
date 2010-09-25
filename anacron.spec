@@ -1,12 +1,9 @@
-# TODO
-# - missing /etc/cron.hourly processing!!!!
-# - doesn't obsolete other crondaemons like other Provides: crondaemons do.
 Summary:	A cron-like program that can run jobs lost during downtime
 Summary(pl.UTF-8):	Wersja crona z możliwością uruchamiania zapomnianych procesów
 Summary(pt_BR.UTF-8):	Auxiliar do cron para máquinas que não ficam ligadas o tempo todo
 Name:		anacron
 Version:	2.3
-Release:	26
+Release:	27
 License:	GPL
 Group:		Daemons
 Source0:	http://dl.sourceforge.net/anacron/%{name}-%{version}.tar.gz
@@ -23,7 +20,7 @@ BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	/usr/lib/sendmail
 Requires:	rc-scripts
-Provides:	crondaemon
+Suggests:	crondaemon
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -124,7 +121,6 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config %{_sysconfdir}/anacrontab
 %dir /var/spool/anacron/
-%attr(750,root,root) %dir %{_sysconfdir}/cron.*
 %attr(755,root,root) /etc/cron.daily/0anacron
 %attr(755,root,root) %{_sysconfdir}/cron.monthly/0anacron
 %attr(755,root,root) %{_sysconfdir}/cron.weekly/0anacron
